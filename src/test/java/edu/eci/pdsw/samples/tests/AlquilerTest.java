@@ -22,12 +22,20 @@ import static org.junit.Assert.*;
  * 
  * Frontera:
  * CF1: Multas a devoluciones hechas en la fecha exacta (multa 0).
+ * CF2: Multas a devoluciones hechas 1 dia despues del prestamo (multa 0)
  * 
  * Clases de equivalencia:
  * CE1: Multas hechas a devolciones realizadas en fechas posteriores
  * a la limite. (multa multa_diaria*dias_retraso)
+ * CE2: Multas hechas a devoluciones realizadas en fechas que estan dentro del limite
  * 
  * 
+ * Registro de item a Cliente:
+ * 
+ * Frontera:
+ * 
+ * Clases de equivalencia:
+ * CE3: El item esta registrado al Cliente
  * 
  */
 public class AlquilerTest {
@@ -73,6 +81,24 @@ public class AlquilerTest {
         assertEquals("No se calcula correctamente la multa "
                 + "cuando la devolucion se realiza varios dias despues del limite."
                 ,sa.valorMultaRetrasoxDia()*3,sa.consultarMultaAlquiler(55, java.sql.Date.valueOf("2005-12-28")));
+                
+    }
+    
+    @Test
+    public void CE2Test() throws ExcepcionServiciosAlquiler{
+        ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
+        
+        Item i1=new Item(sa.consultarTipoItem(1), 50, "Los 4 Fantasticos", "Los 4 Fantásticos  es una película de superhéroes  basada en la serie de cómic homónima de Marvel.", java.sql.Date.valueOf("2005-06-08"), 2000, "DVD", "Ciencia Ficcion");        
+        sa.registrarCliente(new Cliente("Juan Perez",9843,"24234","calle 123","aa@gmail.com"));
+        sa.registrarItem(i1);
+                
+        Item item=sa.consultarItem(50);
+        
+        sa.registrarAlquilerCliente(java.sql.Date.valueOf("2005-12-20"), 9843, item, 3);
+        //prueba: Sin dias de retraso, entrega a 2 dias despues del prestamo
+        assertEquals("No se calcula correctamente la multa (0)"
+                + "cuando la devolucion se realiza dentro de la fecha limite."
+                ,0,sa.consultarMultaAlquiler(55, java.sql.Date.valueOf("2005-12-22")));
                 
     }
     

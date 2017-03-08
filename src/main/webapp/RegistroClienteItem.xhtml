@@ -1,11 +1,47 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3c.org/1999/xhtml"
+    <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head></h:head>
 
     <h:body>
-
+        <h:form id="RegistroAlquiler">
+            <p:layout>
+                <p:layoutUnit position="west" resizable="true" size="700">
+                    <p:dataTable id="ItemsRentados" var="itemRentado" value="#{AlquilerItems.cliente.rentados}">
+                        <f:facet name="header">
+                            Items Rentados
+                        </f:facet>
+                        <p:column headerText="Item">
+                            <h:outputText value="#{itemRentado.item}"/>
+                        </p:column>
+                        <p:column headerText="Multa">
+                            <h:outputText value="#{AlquilerItems.sp.consultarMultaAlquiler(itemRentado.item.id, AlquilerItems.fechaActual)}">
+                                <f:convertNumber currencySymbol="$" type="currency"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </p:layoutUnit>
+                    
+                <p:layoutUnit position="center">
+                    <h:panelGrid id="grid" columns="2" cellpadding="2">
+                        <p:outputLabel for="codigo" value="Codigo Item:" style="font-weight:bold"/>                    
+                        <p:inputText id="codigo" value="#{AlquilerItems.codigo}" required="true" label="Codigo"/>
+ 
+                        <p:outputLabel for="dias" value="Dias Prestamo:" style="font-weight:bold"/>                    
+                        <p:inputText id="dias" value="#{AlquilerItems.dias}" label="Dias"/>
+                    </h:panelGrid>
+                    <p:commandButton value="Agregar" actionListener="#{AlquilerItems.calcularCostoAlquiler()}" update="RegistroAlquiler">
+                        <p:confirm header="Confirmation" message="Costo Prestamo : #{AlquilerItems.costoAlquiler}"/>
+                    </p:commandButton>
+                    
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton update=":RegistroAlquiler:ItemsRentados" value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{AlquilerItems.agregarAlquiler}"/>
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                    </p:confirmDialog>
+                </p:layoutUnit>
+            </p:layout>            
+        </h:form>
     </h:body>
 
 </html>

@@ -102,7 +102,23 @@ public class AlquilerTest {
                 
     }
     
-    
+    @Test
+    public void CF2Test() throws ExcepcionServiciosAlquiler{
+        ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
+        
+        Item i1=new Item(sa.consultarTipoItem(1), 56, "Los 4 Fantasticos", "Los 4 Fantásticos  es una película de superhéroes  basada en la serie de cómic homónima de Marvel.", java.sql.Date.valueOf("2005-06-08"), 2000, "DVD", "Ciencia Ficcion");        
+        sa.registrarCliente(new Cliente("Juan Perez",9845,"24234","calle 123","aa@gmail.com"));
+        sa.registrarItem(i1);
+                
+        Item item=sa.consultarItem(56);
+        
+        sa.registrarAlquilerCliente(java.sql.Date.valueOf("2005-12-20"), 9845, item, 3);
+        //prueba: Sin dias de retraso, entrega a 2 dias despues del prestamo
+        assertEquals("No se calcula correctamente la multa (0)"
+                + "cuando la devolucion se realiza un dia despues del prestamo."
+                ,0,sa.consultarMultaAlquiler(56, java.sql.Date.valueOf("2005-12-21")));
+                
+    }
     
     
     

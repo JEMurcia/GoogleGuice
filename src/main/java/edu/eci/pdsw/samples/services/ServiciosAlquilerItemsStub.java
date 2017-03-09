@@ -59,6 +59,11 @@ public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Ser
         return  new LinkedList<>(clientes.values());
     }
 
+
+    public Map<Long, Cliente> getClientes() {
+        return clientes;
+    }
+
     @Override
     public void registrarCliente(Cliente p) throws ExcepcionServiciosAlquiler {
         if (!clientes.containsKey(p.getDocumento())) {

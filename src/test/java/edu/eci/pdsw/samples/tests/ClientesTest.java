@@ -38,6 +38,7 @@ public class ClientesTest {
     	
     }
     
+
     public void addCliente() throws ExcepcionServiciosAlquiler{
         ServiciosAlquiler sa=ServiciosAlquiler.getInstance();
         
@@ -48,6 +49,7 @@ public class ClientesTest {
         }
     }
     
+
     public void addCliente1() throws ExcepcionServiciosAlquiler{
         ServiciosAlquiler sa=ServiciosAlquiler.getInstance();
         
@@ -57,6 +59,6 @@ public class ClientesTest {
             assertEquals("se registro un cliente que ya se encontraba registrado", null,sa.consultarCliente(1026585664));
         
     }
-       
+
     
 }

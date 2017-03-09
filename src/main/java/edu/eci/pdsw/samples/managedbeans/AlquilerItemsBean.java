@@ -20,8 +20,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.ejb.Init;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.component.message.Message;
 
 /**
  *
@@ -38,6 +41,9 @@ public class AlquilerItemsBean implements Serializable {
     private long costoAlquiler;
     private boolean conditionFlag = true;
 
+    private List<Cliente> listaClientes;
+
+
     private String nombre;
     private long documento;
     private String telefono;
@@ -52,15 +58,21 @@ public class AlquilerItemsBean implements Serializable {
         
     }
     
-    public void agregar() throws ExcepcionServiciosAlquiler{
-        sp.registrarCliente(new Cliente(getNombre(), getDocumento(), getTelefono(), getDireccion(), getEmail()));
-        System.out.println("test"+sp.consultarCliente(getDocumento()));
+    public void agregar(){
+        try {
+            sp.registrarCliente(new Cliente(getNombre(), getDocumento(), getTelefono(), getDireccion(), getEmail()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "El usuario fue registrado"));
+        } catch (ExcepcionServiciosAlquiler ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Este usuario ya se encuentra registrado"));
+        }
+        
+
     }
 
     public Cliente getCliente() {
         return cliente;
     }
-    
+
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
@@ -153,8 +165,18 @@ public class AlquilerItemsBean implements Serializable {
         this.email = email;
     }
 
+
     public boolean isConditionFlag() {
         return conditionFlag;
+    }
+
+    public List<Cliente> getListaClientes() throws ExcepcionServiciosAlquiler {
+        return sp.consultarClientes();
+    }
+
+    public void setListaClientes(List<Cliente> listaClientes) {
+        this.listaClientes = listaClientes;
+
     }
 
     

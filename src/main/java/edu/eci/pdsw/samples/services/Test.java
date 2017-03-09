@@ -26,7 +26,10 @@ public class Test {
         //sa.registrarItem(i2);
         
 
-        System.out.println("test"+sa.consultarClientes().iterator().next());
+
+
+        System.out.println("test"+sa.consultarClientes().get(1).getNombre());
+
 //        System.out.println("++"+sa.consultarCliente(6359));
 //        Item item=sa.consultarItem(1);
 //        

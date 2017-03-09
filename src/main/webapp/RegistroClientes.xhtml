@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3c.org/1999/xhtml"
+
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui" 
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<<<<<<< HEAD
-    <h:head></h:head>
-    <h:body>
-        
-=======
+
     <h:head>
         <title>Registrar cliente</title>
     </h:head>
     <h:body>
-            <p:commandButton value="ingresar nuevo cliente" onclick="PF('dAddCliente').show();"/>        
-            <p:dataTable id="tablaCliente" var="cli" value="#{AlquilerItems.cliente}" selectionMode="single">            
+
+        <h:form id="formulario">
+            <p:messages showDetail="true" autoUpdate="true" closable="true" />
+        <p:commandButton value="ingresar nuevo cliente" onclick="PF('dAddCliente').show();"/>        
+        <p:dataTable id="tablaCliente" var="cli" value="#{AlquilerItems.listaClientes}" selection="#{AlquilerItems.cliente}" selectionMode="single" rowKey="#{cli.documento}"  >      
+            <f:facet name="header">
+            Clientes Registrados
+        </f:facet>
+
             <p:column headerText="nombre usuario" >
                 <h:outputText value="#{cli.nombre}" />
             </p:column>
@@ -24,6 +28,7 @@
                 <h:commandButton value="iniciar" action="RegistroClienteItem" />
             </f:facet>
         </p:dataTable>
+
         <p:dialog header="ingrese los datos del cliente" widgetVar="dAddCliente" modal="true" height="250">
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputText value="documento" />
@@ -37,11 +42,12 @@
             <h:outputText value="email" />
             <h:inputText value="#{AlquilerItems.email}" />
             <f:facet name="footer">
-                <p:commandButton value="agregar" update=":tablaCliente" actionListener="#{AlquilerItems.agregar()}" />
+
+                <p:commandButton value="agregar" update=":formulario" actionListener="#{AlquilerItems.agregar()}" />
             </f:facet>
             </h:panelGrid>
         </p:dialog>
->>>>>>> vista registrar cliente, no muesta clientes
-  
+        </h:form>
+
     </h:body>
 </html>

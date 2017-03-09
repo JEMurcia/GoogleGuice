@@ -39,7 +39,9 @@ public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Ser
         itemsrentados = new HashMap<>();
         tipositems = new HashMap<>();
         mapaPrestamosPorIdCliente=new HashMap<>();
-        //poblar();
+
+        poblar();
+
     }
 
     @Override
@@ -190,11 +192,9 @@ public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Ser
             
             LocalDate fechaMinimaEntrega=ir.getFechafinrenta().toLocalDate();
             LocalDate fechaEntrega=fechaDevolucion.toLocalDate();
-<<<<<<< HEAD
+
             long diasRetraso = (fechaEntrega.isBefore(fechaMinimaEntrega))? 0:ChronoUnit.DAYS.between(fechaMinimaEntrega, fechaEntrega);
-=======
-            long diasRetraso = ChronoUnit.DAYS.between(fechaMinimaEntrega, fechaEntrega);
->>>>>>> correcion conexion servidor tomcat
+
             return diasRetraso*MULTA_DIARIA;
         }
     }
@@ -278,11 +278,13 @@ public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Ser
         clientes.put(c2.getDocumento(), c2);
         clientes.put(c3.getDocumento(), c3);
 
+
     }
 
 
 
     
+
 
 }
 

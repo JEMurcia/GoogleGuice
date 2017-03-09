@@ -3,9 +3,45 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui" 
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+<<<<<<< HEAD
     <h:head></h:head>
     <h:body>
         
+=======
+    <h:head>
+        <title>Registrar cliente</title>
+    </h:head>
+    <h:body>
+            <p:commandButton value="ingresar nuevo cliente" onclick="PF('dAddCliente').show();"/>        
+            <p:dataTable id="tablaCliente" var="cli" value="#{AlquilerItems.cliente}" selectionMode="single">            
+            <p:column headerText="nombre usuario" >
+                <h:outputText value="#{cli.nombre}" />
+            </p:column>
+            <p:column headerText="documento">
+                <h:outputText value="#{cli.documento}" />
+            </p:column>
+            <f:facet name="footer">
+                <h:commandButton value="iniciar" action="RegistroClienteItem" />
+            </f:facet>
+        </p:dataTable>
+        <p:dialog header="ingrese los datos del cliente" widgetVar="dAddCliente" modal="true" height="250">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputText value="documento" />
+            <h:inputText value="#{AlquilerItems.documento}" />
+            <h:outputText value="nombre" />
+            <h:inputText value="#{AlquilerItems.nombre}" />
+            <h:outputText value="Telefono" />
+            <h:inputText value="#{AlquilerItems.telefono}" />
+            <h:outputText value="direccion" />
+            <h:inputText value="#{AlquilerItems.direccion}" />
+            <h:outputText value="email" />
+            <h:inputText value="#{AlquilerItems.email}" />
+            <f:facet name="footer">
+                <p:commandButton value="agregar" update=":tablaCliente" actionListener="#{AlquilerItems.agregar()}" />
+            </f:facet>
+            </h:panelGrid>
+        </p:dialog>
+>>>>>>> vista registrar cliente, no muesta clientes
   
     </h:body>
 </html>

@@ -25,13 +25,17 @@ public class Test {
         sa.registrarItem(i1);
         //sa.registrarItem(i2);
         
-        Item item=sa.consultarItem(1);
-        
-        System.out.println(sa.consultarItemsDisponibles());
-        
-        sa.registrarAlquilerCliente(java.sql.Date.valueOf("2005-12-01"), 123, item, 5);
-        
-        System.out.println(sa.consultarMultaAlquiler(1, java.sql.Date.valueOf("2005-12-06")));
+
+        System.out.println("test"+sa.consultarClientes().iterator().next());
+//        System.out.println("++"+sa.consultarCliente(6359));
+//        Item item=sa.consultarItem(1);
+//        
+//        System.out.println(sa.consultarItemsDisponibles());
+//        
+//        sa.registrarAlquilerCliente(java.sql.Date.valueOf("2005-12-01"), 123, item, 5);
+//        
+//        System.out.println(sa.consultarMultaAlquiler(1, java.sql.Date.valueOf("2005-12-06")));
+
         
         //sa.registrarAlquilerCliente(java.sql.Date.valueOf("2017-01-01"), 123, , 0);
         

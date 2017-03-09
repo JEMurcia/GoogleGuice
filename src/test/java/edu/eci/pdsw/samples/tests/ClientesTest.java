@@ -13,12 +13,17 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+<<<<<<< HEAD
  *Intento de agregar cliente con el atributo vetado =true
  * addItem1: cuando el atributo vetado es igual a true, entonces no se debe permitir agregar a un cliente
  * 
  * El cliente ya se encuentra registrado
  * clienteRegitrado: se invoca el metodo consultarCliente y si ya se encuentra, entonces no se debe agregar 
  * 
+=======
+ *Registra un cliente ya registrado
+ * addCliente1: Cuando se registra un nuevo cliente y este ya se encuentra registrado
+>>>>>>> vista registrar cliente, no muesta clientes
  * 
  */
 public class ClientesTest {
@@ -36,6 +41,7 @@ public class ClientesTest {
     	
     }
     
+<<<<<<< HEAD
     public void addCliente() throws ExcepcionServiciosAlquiler{
         ServiciosAlquiler sa=ServiciosAlquiler.getInstance();
         
@@ -46,6 +52,20 @@ public class ClientesTest {
         }
     }
     
+=======
+    public void addCliente1() throws ExcepcionServiciosAlquiler{
+        ServiciosAlquiler sa=ServiciosAlquiler.getInstance();
+        
+        sa.registrarCliente(new Cliente("Oscar Alba", 1026585664, "6788952", "KRA 109#34-C30", "oscar@hotmail.com"));
+        
+        
+            assertEquals("se registro un cliente que ya se encontraba registrado", null,sa.consultarCliente(1026585664));
+        
+    }
+    
+    
+    
+>>>>>>> vista registrar cliente, no muesta clientes
       
     
     

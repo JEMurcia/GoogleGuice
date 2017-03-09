@@ -15,7 +15,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,10 +32,11 @@ import javax.faces.context.FacesContext;
 public class AlquilerItemsBean implements Serializable {
     
     private Cliente cliente;
-    private final Date fechaActual = new Date();
+    private final Date fechaActual = java.sql.Date.valueOf(LocalDate.now());
     private int codigo;
     private int dias;
     private long costoAlquiler;
+    private boolean conditionFlag = true;
 
     private String nombre;
     private long documento;
@@ -89,18 +91,26 @@ public class AlquilerItemsBean implements Serializable {
         this.dias = dias;
     }
     
-    public void AgregarAlquiler() throws ExcepcionServiciosAlquiler{
-        sp.registrarAlquilerCliente(java.sql.Date.valueOf(fechaActual.toLocaleString()), cliente.getDocumento(), sp.consultarItem(codigo), dias);
+    public void agregarAlquiler(){
+        try {
+            sp.registrarAlquilerCliente(fechaActual, cliente.getDocumento(), sp.consultarItem(codigo), dias);
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", ex.getMessage()));
+        }
     }
 
-    public long getCostoAlquiler() throws ExcepcionServiciosAlquiler {
+    public long getCostoAlquiler(){
         return costoAlquiler;
     }
 
-    public void calcularCostoAlquiler() throws ExcepcionServiciosAlquiler {
-        Item i1=new Item(sp.consultarTipoItem(1), 300, "Los 4 Fantasticos", "Los 4 Fantásticos  es una película de superhéroes  basada en la serie de cómic homónima de Marvel.", java.sql.Date.valueOf("2005-06-08"), 2000, "DVD", "Ciencia Ficcion");
-        sp.registrarItem(i1);
-        this.costoAlquiler = sp.consultarCostoAlquiler(codigo, dias);
+    public void calcularCostoAlquiler() {
+        try {
+            this.costoAlquiler = sp.consultarCostoAlquiler(codigo, dias);
+            conditionFlag = true;
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", ex.getMessage()));
+            conditionFlag = false;
+        }
     }
 
     public String getNombre() {
@@ -141,6 +151,10 @@ public class AlquilerItemsBean implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isConditionFlag() {
+        return conditionFlag;
     }
 
     

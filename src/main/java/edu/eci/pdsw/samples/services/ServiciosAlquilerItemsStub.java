@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  *
@@ -237,6 +238,8 @@ public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Ser
     
     private void poblar() {
         
+        LOG.info("inicializando datos...");
+        
         TipoItem ti1=new TipoItem(1,"Video");
         TipoItem ti2=new TipoItem(2,"Juego");
         TipoItem ti3=new TipoItem(3,"Musica");
@@ -280,6 +283,7 @@ public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Ser
 
 
     }
+    private static final Logger LOG = Logger.getLogger(ServiciosAlquilerItemsStub.class.getName());
 
 
 

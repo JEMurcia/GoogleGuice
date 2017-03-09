@@ -24,21 +24,29 @@
                 </p:layoutUnit>
                     
                 <p:layoutUnit position="center">
-                    <h:panelGrid id="grid" columns="2" cellpadding="2">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                    
+                    <h:panelGrid id="grid" columns="3" cellpadding="2">
                         <p:outputLabel for="codigo" value="Codigo Item:" style="font-weight:bold"/>                    
                         <p:inputText id="codigo" value="#{AlquilerItems.codigo}" required="true" label="Codigo"/>
+                        <p:message for="codigo" />
  
                         <p:outputLabel for="dias" value="Dias Prestamo:" style="font-weight:bold"/>                    
-                        <p:inputText id="dias" value="#{AlquilerItems.dias}" label="Dias"/>
+                        <p:inputText id="dias" value="#{AlquilerItems.dias}" required="true" label="Dias"/>
+                        <p:message for="dias" />
                     </h:panelGrid>
-                    <p:commandButton value="Agregar" actionListener="#{AlquilerItems.calcularCostoAlquiler()}" update="RegistroAlquiler">
-                        <p:confirm header="Confirmation" message="Costo Prestamo : #{AlquilerItems.costoAlquiler}"/>
-                    </p:commandButton>
+                    <p:commandButton value="Agregar" actionListener="#{AlquilerItems.calcularCostoAlquiler()}" oncomplete="if (#{AlquilerItems.conditionFlag}) { PF('confirm').show() }" update="@this, :RegistroAlquiler:confirmPrestamo"/>
                     
-                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                        <p:commandButton update=":RegistroAlquiler:ItemsRentados" value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" actionListener="#{AlquilerItems.agregarAlquiler}"/>
-                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
-                    </p:confirmDialog>
+                    <p:dialog header="Confirmacion" widgetVar="confirm" height="150" width="300" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="confirmPrestamo" style="text-align:center;">
+                            <p:panelGrid  columns="2">
+                                <h:outputLabel value="Costo Prestamo :"/>
+                                <h:outputText value="#{AlquilerItems.costoAlquiler}" />
+                            </p:panelGrid>
+                            <p:commandButton update="RegistroAlquiler" value="Yes" icon="ui-icon-check" actionListener="#{AlquilerItems.agregarAlquiler()}"/>
+                            <p:commandButton update="RegistroAlquiler" value="No" icon="ui-icon-close"/>
+                        </p:outputPanel>
+                    </p:dialog>
                 </p:layoutUnit>
             </p:layout>            
         </h:form>

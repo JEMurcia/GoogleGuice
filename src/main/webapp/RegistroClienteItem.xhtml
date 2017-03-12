@@ -8,15 +8,16 @@
         <h:form id="RegistroAlquiler">
             <p:layout>
                 <p:layoutUnit position="west" resizable="true" size="700">
+                    <h1>Cliente : #{AlquilerItems.cliente.nombre}</h1>
                     <p:dataTable id="ItemsRentados" var="itemRentado" value="#{AlquilerItems.cliente.rentados}">
                         <f:facet name="header">
                             Items Rentados
                         </f:facet>
                         <p:column headerText="Item">
-                            <h:outputText value="#{itemRentado.item}"/>
+                            <h:outputText value="#{itemRentado.item.nombre}"/>
                         </p:column>
                         <p:column headerText="Multa">
-                            <h:outputText value="#{AlquilerItems.sp.consultarMultaAlquiler(itemRentado.item.id, AlquilerItems.fechaActual)}">
+                            <h:outputText value="#{AlquilerItems.consultarMulta(itemRentado.item.id, AlquilerItems.fechaActual)}">
                                 <f:convertNumber currencySymbol="$" type="currency"/>
                             </h:outputText>
                         </p:column>

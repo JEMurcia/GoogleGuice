@@ -179,5 +179,13 @@ public class AlquilerItemsBean implements Serializable {
 
     }
 
-    
+    public long consultarMulta(int iditem,Date fechaDevolucion){
+        long multa = 0;
+        try {
+            multa = sp.consultarMultaAlquiler(iditem, fechaDevolucion);
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: ", ex.getMessage()));
+        }
+        return multa;
+    }
 }

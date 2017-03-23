@@ -8,6 +8,7 @@ package edu.eci.pdsw.samples.tests;
 import edu.eci.pdsw.samples.entities.Cliente;
 import edu.eci.pdsw.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.pdsw.samples.services.ServiciosAlquiler;
+import edu.eci.pdsw.samples.services.ServiciosAlquilerFactory;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -39,19 +40,8 @@ public class ClientesTest {
     }
     
 
-    public void addCliente() throws ExcepcionServiciosAlquiler{
-        ServiciosAlquiler sa=ServiciosAlquiler.getInstance();
-        
-        Cliente cl= new Cliente("Juan Perez",3842,"24234","calle 123","aa@gmail.com");
-        
-        if(sa.consultarCliente(cl.getDocumento())!=null){
-            assertEquals("el cliente ya se encuentra registrado", null,sa.consultarCliente(cl.getDocumento()));
-        }
-    }
-    
-
     public void addCliente1() throws ExcepcionServiciosAlquiler{
-        ServiciosAlquiler sa=ServiciosAlquiler.getInstance();
+        ServiciosAlquiler sa=ServiciosAlquilerFactory.getInstance().getServiciosAlquilerTesting();
         
         sa.registrarCliente(new Cliente("Oscar Alba", 1026585664, "6788952", "KRA 109#34-C30", "oscar@hotmail.com"));
         

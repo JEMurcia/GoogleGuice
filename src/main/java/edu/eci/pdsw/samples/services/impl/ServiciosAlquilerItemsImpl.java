@@ -5,7 +5,7 @@ import com.google.inject.Singleton;
 import edu.eci.pdsw.sampleprj.dao.ClienteDAO;
 import edu.eci.pdsw.sampleprj.dao.ItemDAO;
 import edu.eci.pdsw.sampleprj.dao.PersistenceException;
-
+import edu.eci.pdsw.sampleprj.dao.TipoItemDAO;
 import edu.eci.pdsw.samples.entities.Cliente;
 import edu.eci.pdsw.samples.entities.Item;
 import edu.eci.pdsw.samples.entities.ItemRentado;
@@ -27,6 +27,10 @@ public class ServiciosAlquilerItemsImpl extends ServiciosAlquiler {
     
     @Inject 
     private ClienteDAO daoCliente;
+
+    
+    @Inject
+    private TipoItemDAO daoTipoItem;
         
     @Override
     public int valorMultaRetrasoxDia() {
@@ -73,7 +77,12 @@ public class ServiciosAlquilerItemsImpl extends ServiciosAlquiler {
 
     @Override
     public TipoItem consultarTipoItem(int id) throws ExcepcionServiciosAlquiler {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        try {
+            return daoTipoItem.load(id);
+        } catch (PersistenceException ex) {
+            throw new ExcepcionServiciosAlquiler("el tipo de item ingresado no se encuentra regisrado", ex);
+        }
     }
 
     @Override
@@ -88,7 +97,11 @@ public class ServiciosAlquilerItemsImpl extends ServiciosAlquiler {
 
     @Override
     public void registrarCliente(Cliente p) throws ExcepcionServiciosAlquiler {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+             daoCliente.save(p);
+        } catch (Exception e) {
+            throw new ExcepcionServiciosAlquiler("no se ha podido agregar un el cliente", e);
+        }
     }
 
     @Override
@@ -108,7 +121,11 @@ public class ServiciosAlquilerItemsImpl extends ServiciosAlquiler {
 
     @Override
     public void registrarItem(Item i) throws ExcepcionServiciosAlquiler {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            daoItem.save(i);
+        } catch (PersistenceException ex) {
+            throw new ExcepcionServiciosAlquiler("no se logrado guardar el item", ex);
+        }
     }
 
     @Override

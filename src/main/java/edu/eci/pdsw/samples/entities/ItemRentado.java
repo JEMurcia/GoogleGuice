@@ -31,6 +31,7 @@ public class ItemRentado implements Serializable {
     public ItemRentado() {
     }
 
+
     public int getId() {
         return id;
     }
@@ -67,4 +68,5 @@ public class ItemRentado implements Serializable {
     public String toString() {
         return "ItemRentado{" + "id=" + id + ", item=" + item + ", fechainiciorenta=" + fechainiciorenta + ", fechafinrenta=" + fechafinrenta + '}';
     }
+
 }

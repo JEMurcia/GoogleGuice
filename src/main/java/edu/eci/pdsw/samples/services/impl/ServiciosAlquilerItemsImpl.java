@@ -53,7 +53,11 @@ public class ServiciosAlquilerItemsImpl extends ServiciosAlquiler {
 
     @Override
     public List<Cliente> consultarClientes() throws ExcepcionServiciosAlquiler {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            return daoCliente.allClientes();
+        } catch (PersistenceException e) {
+            throw new ExcepcionServiciosAlquiler("Error al consultar los clientes ",e);
+        }
     }
 
     @Override
@@ -77,7 +81,6 @@ public class ServiciosAlquilerItemsImpl extends ServiciosAlquiler {
 
     @Override
     public TipoItem consultarTipoItem(int id) throws ExcepcionServiciosAlquiler {
-
         try {
             return daoTipoItem.load(id);
         } catch (PersistenceException ex) {

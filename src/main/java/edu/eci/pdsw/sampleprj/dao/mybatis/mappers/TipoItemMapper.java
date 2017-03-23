@@ -3,6 +3,7 @@ package edu.eci.pdsw.sampleprj.dao.mybatis.mappers;
 
 import edu.eci.pdsw.samples.entities.TipoItem;
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 
 /**
@@ -13,7 +14,7 @@ public interface TipoItemMapper {
     
     public List<TipoItem> getTiposItems();
     
-    public TipoItem getTipoItem(int id);
+    public TipoItem getTipoItem(@Param("idti")  int id);
     
-    public void addTipoItem(String des);
+    public void addTipoItem(@Param("tipoitem") String des);
 }

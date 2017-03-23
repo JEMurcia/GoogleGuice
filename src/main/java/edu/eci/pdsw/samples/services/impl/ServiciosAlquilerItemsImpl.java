@@ -20,7 +20,7 @@ import java.util.List;
  * @author hcadavid
  */
 @Singleton
-public class ServiciosAlquilerItemsImpl implements ServiciosAlquiler {
+public class ServiciosAlquilerItemsImpl extends ServiciosAlquiler {
 
     @Inject
     private ItemDAO daoItem;

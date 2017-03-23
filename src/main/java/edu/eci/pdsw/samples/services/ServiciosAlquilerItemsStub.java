@@ -1,12 +1,11 @@
-package edu.eci.pdsw.samples.services.impl;
+package edu.eci.pdsw.samples.services;
 
 import edu.eci.pdsw.samples.entities.Cliente;
 import edu.eci.pdsw.samples.entities.Item;
 import edu.eci.pdsw.samples.entities.ItemRentado;
 import edu.eci.pdsw.samples.entities.TipoItem;
-import edu.eci.pdsw.samples.services.ExcepcionServiciosAlquiler;
-import edu.eci.pdsw.samples.services.ServiciosAlquiler;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -20,7 +19,7 @@ import java.util.Map;
  *
  * @author 2106913
  */
-public class ServiciosAlquilerItemsStub extends ServiciosAlquiler {
+public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Serializable{
     
     private static final int MULTA_DIARIA=5000;
     private final static long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;

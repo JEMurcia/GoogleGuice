@@ -12,6 +12,7 @@ import java.sql.Date;
  *
  * @author 2106913
  */
+
 public class ItemRentado implements Serializable {
 
     private int id;
@@ -66,7 +67,4 @@ public class ItemRentado implements Serializable {
     public String toString() {
         return "ItemRentado{" + "id=" + id + ", item=" + item + ", fechainiciorenta=" + fechainiciorenta + ", fechafinrenta=" + fechafinrenta + '}';
     }
-
-    
-    
 }
